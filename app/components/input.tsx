@@ -12,12 +12,22 @@ export function Input() {
 
   const { user } = useUser();
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (!user) {
       return null;
     }
 
-    sendMessage(message, user.username ?? "unkown user");
+    const { username, firstName, lastName } = user;
+
+    const customUsername =
+      firstName && lastName
+        ? firstName?.slice(0, 3) + lastName?.slice(0, 3)
+        : undefined;
+
+    const name =
+      username ?? customUsername ?? firstName ?? lastName ?? "unkown user";
+
+    await sendMessage(message, name);
 
     setMessage("");
   };
