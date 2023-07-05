@@ -33,7 +33,7 @@ export function Input() {
   }, [router]);
 
   return (
-    <div className="flex items-center fixed bottom-2 left-2 right-2 shadow-lg rounded-md p-1">
+    <div className="flex items-center fixed bottom-2 left-2 right-2 shadow-lg rounded-md p-1 bg-white">
       <input
         className="text-lg w-full p-2"
         type="text"
