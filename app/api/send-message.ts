@@ -1,13 +1,15 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
-import { db } from "./db";
+import { MESSAGE_CHANNEL, Message, NEW_MESSAGE_EVENT } from "../shared/message";
+import { pusherServer } from "../shared/pusher-server";
 
-export async function sendMessage(message: string, authorName: string) {
-  await db.execute("INSERT INTO messages (authorName, message) VALUES (?, ?)", [
+export async function sendMessage(text: string, authorName: string) {
+  const message: Message = {
     authorName,
-    message,
-  ]);
+    message: text,
+    createdAt: new Date(),
+    id: Math.random(),
+  };
 
-  revalidatePath("/");
+  await pusherServer.trigger(MESSAGE_CHANNEL, NEW_MESSAGE_EVENT, message);
 }

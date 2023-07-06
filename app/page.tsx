@@ -1,25 +1,24 @@
 import { Nav } from "./components/nav";
-import { loadMessages } from "./api/load-messages";
-import { Message } from "./components/message";
+import { connect } from "./api/connect";
 import { Input } from "./components/input";
+import { MessageList } from "./components/message-list";
+import { currentUser } from "@clerk/nextjs";
 
 export default async function Home() {
-  let messages = await loadMessages();
+  const user = await currentUser();
+
+  if (!user) {
+    return null;
+  }
+
+  await connect(user);
 
   return (
     <>
       <Nav />
 
       <main className="pt-20 pb-20 px-10 md:w-1/2 m-auto mt-10 grid gap-4">
-        {messages.map((message) => (
-          <Message
-            key={message.id}
-            id={message.id}
-            author={message.authorName}
-            date={message.createdAt}
-            message={message.message}
-          />
-        ))}
+        <MessageList />
 
         <Input />
       </main>

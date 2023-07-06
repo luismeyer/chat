@@ -1,12 +1,11 @@
 "use client";
 
-import { startTransition, useEffect, useState } from "react";
+import { useState } from "react";
 import { sendMessage } from "../api/send-message";
 import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
 
 export function Input() {
-  const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const [message, setMessage] = useState("");
 
@@ -16,6 +15,8 @@ export function Input() {
     if (!user) {
       return null;
     }
+
+    setLoading(true);
 
     const { username, firstName, lastName } = user;
 
@@ -30,21 +31,13 @@ export function Input() {
     await sendMessage(message, name);
 
     setMessage("");
+    setLoading(false);
   };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      startTransition(() => router.refresh());
-    }, 10000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [router]);
 
   return (
     <div className="flex items-center fixed bottom-2 left-2 right-2 shadow-lg rounded-md p-1 bg-white">
       <input
+        disabled={loading}
         className="text-lg w-full p-2"
         type="text"
         value={message}
@@ -56,7 +49,7 @@ export function Input() {
         }}
       />
 
-      <button className="p-4" onClick={handleClick}>
+      <button disabled={loading} className="p-4" onClick={handleClick}>
         Send
       </button>
     </div>

@@ -1,22 +1,16 @@
 "use client";
 
 import { formatDistanceToNow } from "date-fns";
-import { deleteMessage } from "../api/delete-messages";
 
 type MessageProps = {
   message: string;
   date: Date;
   author: string;
-  id: number;
 };
 
-export function Message({ author, date, message, id }: MessageProps) {
-  const handleClick = () => {
-    deleteMessage(id);
-  };
-
+export function Message({ author, date, message }: MessageProps) {
   return (
-    <div onClick={handleClick} className="w-full rounded-md shadow-md p-5">
+    <div className="w-full rounded-md shadow-md p-5">
       <div className="flex items-center justify-between">
         <span className="text-sm text-gray-600">{author}</span>
 
