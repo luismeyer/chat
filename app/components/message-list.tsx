@@ -39,8 +39,6 @@ export function MessageList() {
 
     availableColors.current.delete(color);
 
-    console.log(Array.from(availableColors.current));
-
     colors.current.set(id, color);
 
     return color;

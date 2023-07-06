@@ -4,7 +4,11 @@ type UsernameOptions = {
   lastName?: string | null;
 };
 
-export function username({ username, firstName, lastName }: UsernameOptions) {
+export function buildUsername({
+  username,
+  firstName,
+  lastName,
+}: UsernameOptions) {
   const customUsername =
     firstName && lastName
       ? firstName?.slice(0, 3) + lastName?.slice(0, 3)

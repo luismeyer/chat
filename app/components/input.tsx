@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { sendMessage } from "../api/send-message";
 import { useUser } from "@clerk/nextjs";
-import { username } from "../shared/username";
+import { buildUsername } from "../shared/username";
 
 export function Input() {
   const [loading, setLoading] = useState(false);
@@ -20,7 +20,7 @@ export function Input() {
     setLoading(true);
 
     await sendMessage(message, {
-      username: username(user),
+      username: buildUsername(user),
       id: user.id,
     });
 

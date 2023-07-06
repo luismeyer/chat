@@ -12,7 +12,7 @@ export default async function Home() {
     return null;
   }
 
-  await connect(user);
+  await connect();
 
   return (
     <>

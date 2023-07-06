@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const ConnectionSchema = z.object({
   username: z.string(),
+  userId: z.string(),
 });
 
 export type Connection = z.infer<typeof ConnectionSchema>;
