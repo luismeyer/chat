@@ -1,6 +1,10 @@
 "use server";
 
-import { MESSAGE_CHANNEL, Message, NEW_MESSAGE_EVENT } from "../shared/message";
+import {
+  MESSAGES_CHANNEL,
+  Message,
+  NEW_MESSAGE_EVENT,
+} from "../shared/message";
 import { pusherServer } from "../shared/pusher-server";
 
 export async function sendMessage(text: string, authorName: string) {
@@ -11,5 +15,5 @@ export async function sendMessage(text: string, authorName: string) {
     id: Math.random(),
   };
 
-  await pusherServer.trigger(MESSAGE_CHANNEL, NEW_MESSAGE_EVENT, message);
+  await pusherServer.trigger(MESSAGES_CHANNEL, NEW_MESSAGE_EVENT, message);
 }

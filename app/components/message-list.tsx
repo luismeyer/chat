@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  MESSAGE_CHANNEL,
+  MESSAGES_CHANNEL,
   Message,
   MessageSchema,
   NEW_MESSAGE_EVENT,
@@ -14,7 +14,7 @@ export function MessageList() {
   const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
-    const channel = pusherClient.subscribe(MESSAGE_CHANNEL);
+    const channel = pusherClient.subscribe(MESSAGES_CHANNEL);
 
     channel.bind(NEW_MESSAGE_EVENT, function (data: unknown) {
       const message = MessageSchema.parse(data);
