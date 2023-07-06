@@ -4,6 +4,7 @@ export const MessageSchema = z.object({
   id: z.number(),
   message: z.string(),
   authorName: z.string(),
+  authorId: z.string(),
   createdAt: z.coerce.date(),
 });
 

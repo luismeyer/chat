@@ -19,7 +19,10 @@ export function Input() {
 
     setLoading(true);
 
-    await sendMessage(message, username(user));
+    await sendMessage(message, {
+      username: username(user),
+      id: user.id,
+    });
 
     setMessage("");
     setLoading(false);

@@ -1,23 +1,23 @@
 "use client";
 
-import { formatDistanceToNow } from "date-fns";
+import { useMemo, useRef } from "react";
 
 type MessageProps = {
   message: string;
-  date: Date;
   author: string;
+  isOwnMessage: boolean;
+  backgroundColor: string;
 };
 
-export function Message({ author, date, message }: MessageProps) {
+export function Message({
+  author,
+  message,
+  isOwnMessage,
+  backgroundColor,
+}: MessageProps) {
   return (
-    <div className="w-full rounded-md shadow-md p-5">
-      <div className="flex items-center justify-between">
-        <span className="text-sm text-gray-600">{author}</span>
-
-        <span className="text-sm text-gray-600">
-          {formatDistanceToNow(date, { includeSeconds: true, addSuffix: true })}
-        </span>
-      </div>
+    <div className={`w-full rounded-md shadow-md p-2 grid ${backgroundColor}`}>
+      {!isOwnMessage && <span className="text-xs text-gray-500">{author}</span>}
 
       <span className="text-lg">{message}</span>
     </div>

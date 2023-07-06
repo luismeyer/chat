@@ -18,7 +18,7 @@ export default async function Home() {
     <>
       <Nav />
 
-      <main className="pt-20 pb-20 px-10 md:w-1/2 m-auto mt-10 grid gap-4">
+      <main className="pt-20 pb-20 px-4 md:px-10 m-auto mt-10 grid gap-4">
         <ConnectionToasts />
 
         <MessageList />

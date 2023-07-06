@@ -7,12 +7,21 @@ import {
 } from "../shared/message";
 import { pusherServer } from "../shared/pusher-server";
 
-export async function sendMessage(text: string, authorName: string) {
+type Author = {
+  id: string;
+  username: string;
+};
+
+export async function sendMessage(
+  text: string,
+  { id, username: userame }: Author
+) {
   const message: Message = {
-    authorName,
     message: text,
     createdAt: new Date(),
     id: Math.random(),
+    authorName: userame,
+    authorId: id,
   };
 
   await pusherServer.trigger(MESSAGES_CHANNEL, NEW_MESSAGE_EVENT, message);
