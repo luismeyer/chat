@@ -4,11 +4,14 @@ import { useEffect, useState } from "react";
 import { pusherClient } from "../shared/pusher-client";
 import {
   CONNECTIONS_CHANNEL,
-  ConnectionSchema,
-  NEW_CONNECTION_EVENT,
+  Connection,
+  JOIN_EVENT,
 } from "../shared/connection";
 import { AnimatePresence, motion } from "framer-motion";
 import { useUser } from "@clerk/nextjs";
+import { sendWelcome } from "../api/send-welcome";
+
+const channel = pusherClient.subscribe(CONNECTIONS_CHANNEL);
 
 export function ConnectionToasts() {
   const { user } = useUser();
@@ -16,14 +19,12 @@ export function ConnectionToasts() {
   const [toasts, setToasts] = useState<string[]>([]);
 
   useEffect(() => {
-    const channel = pusherClient.subscribe(CONNECTIONS_CHANNEL);
-
-    channel.bind(NEW_CONNECTION_EVENT, function (data: unknown) {
-      const { username, userId } = ConnectionSchema.parse(data);
-
+    channel.bind(JOIN_EVENT, async function ({ username, userId }: Connection) {
       if (!user || user?.id === userId) {
         return;
       }
+
+      await sendWelcome();
 
       setToasts((pre) => [...pre, `${username} joined the chat 🚀`]);
 
@@ -35,7 +36,7 @@ export function ConnectionToasts() {
   }, [user]);
 
   return (
-    <div className="fixed left-3 right-3 top-3 grid gap-4">
+    <div className="fixed left-3 right-3 top-3 grid gap-4 z-20">
       <AnimatePresence>
         {toasts.map((toast) => (
           <motion.div

@@ -1,9 +1,8 @@
-import { Nav } from "./components/nav";
-import { connect } from "./api/connect";
-import { Input } from "./components/input";
-import { MessageList } from "./components/message-list";
 import { currentUser } from "@clerk/nextjs";
 import { ConnectionToasts } from "./components/connection-toasts";
+import { Input } from "./components/input";
+import { MessageList } from "./components/message-list";
+import { Nav } from "./components/nav";
 
 export default async function Home() {
   const user = await currentUser();
@@ -12,7 +11,6 @@ export default async function Home() {
     return null;
   }
 
-  await connect();
 
   return (
     <>

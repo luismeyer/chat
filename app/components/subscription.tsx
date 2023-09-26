@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { saveSubscription } from "../api/save-subscription";
+
 import { deleteSubscription } from "../api/delete-subscription";
-import { set } from "zod";
+import { saveSubscription } from "../api/save-subscription";
 
 if (!process.env.NEXT_PUBLIC_VAPID_KEY) {
   throw new Error("Missing Env Variable NEXT_PUBLIC_VAPID_KEY");
@@ -88,7 +88,7 @@ export function Subscription({ subscribed }: SubscriptionProps) {
   return (
     <button
       className="rounded-full bg-teal-300 w-8 h-8 flex items-center justify-center"
-      disabled={!serviceWorker}
+      disabled={loading}
       onClick={handleClick}
     >
       {isSubscribed ? (

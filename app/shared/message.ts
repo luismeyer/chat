@@ -11,4 +11,4 @@ export const MessageSchema = z.object({
 export type Message = z.infer<typeof MessageSchema>;
 
 export const MESSAGES_CHANNEL = "messages";
-export const NEW_MESSAGE_EVENT = "newMessage";
+export const NEW_MESSAGE_EVENT = "client-newMessage";

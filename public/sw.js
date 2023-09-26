@@ -8,7 +8,6 @@ self.addEventListener("notificationclick", function (event) {
       for (let i = 0; i < windowClients.length; i++) {
         const client = windowClients[i];
 
-        console.log({ client, url });
         // If so, just focus it.
         if (client.url === url && "focus" in client) {
           return client.focus();

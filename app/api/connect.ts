@@ -1,3 +1,5 @@
+"use server";
+
 import webPush from "web-push";
 
 import { currentUser } from "@clerk/nextjs";
@@ -5,7 +7,7 @@ import { currentUser } from "@clerk/nextjs";
 import {
   Connection,
   CONNECTIONS_CHANNEL,
-  NEW_CONNECTION_EVENT,
+  JOIN_EVENT,
 } from "../shared/connection";
 import { pusherServer } from "../shared/pusher-server";
 import { SavedSubscriptionSchema } from "../shared/subscription";
@@ -66,11 +68,7 @@ export async function connect() {
     userId: user.id,
   };
 
-  await pusherServer.trigger(
-    CONNECTIONS_CHANNEL,
-    NEW_CONNECTION_EVENT,
-    newConnection
-  );
+  await pusherServer.trigger(CONNECTIONS_CHANNEL, JOIN_EVENT, newConnection);
 
   try {
     await sendWebPushNotification(user.id, username);

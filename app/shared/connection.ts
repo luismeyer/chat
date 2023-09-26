@@ -1,11 +1,13 @@
-import { z } from "zod";
-
-export const ConnectionSchema = z.object({
-  username: z.string(),
-  userId: z.string(),
-});
-
-export type Connection = z.infer<typeof ConnectionSchema>;
+export type Connection = {
+  username: string;
+  userId: string;
+};
 
 export const CONNECTIONS_CHANNEL = "connections";
-export const NEW_CONNECTION_EVENT = "newConnection";
+
+// event is triggered when a user joins the chat
+export const JOIN_EVENT = "join";
+// all users that are already in the chat answer with this event
+export const WELCOME_EVENT = "welcome";
+// when a user leaves
+export const LEAVE_EVENT = "leave";
